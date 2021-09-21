@@ -1,13 +1,12 @@
 // Control flow and conditional statements
 import 'dart:io';
+import 'package:app/display_intro.dart';
+import 'package:app/game_logic.dart';
 
 void main(List<String> arguments) {
   const exitCode = 'q';
 
-  print('Welcome to mobile legends!');
-  print('= = = = =');
-  print('Guess the number!');
-  print('Enter a number. Enter [$exitCode] to exit the game: ');
+  displayIntro(exitCode);
 
   // Declare the lucky number.
   int luckyNumber = 45;
@@ -18,14 +17,10 @@ void main(List<String> arguments) {
   guess = stdin.readLineSync()!;
 
   while (guess != exitCode) {
-    if (int.parse(guess) < luckyNumber) {
-      print('Guess higher!');
-    } else if (int.parse(guess) > luckyNumber) {
-      print('Guess lower!');
-    } else {
-      print('JACKPOT!!! Congratulations!');
-      
-      return;
+    var gl = gameLogic(guess, luckyNumber);
+
+    if (gl == 0) {
+      exit(0);
     }
 
     guess = stdin.readLineSync()!;
